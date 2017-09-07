@@ -10,10 +10,10 @@ public class hiber_test {
 	@Test
 	public void fun1()
 	{
-		Configuration conf=new Configuration();
+		Configuration conf=new Configuration().configure();
 		SessionFactory sf =conf.buildSessionFactory();
 		Session session= sf.openSession();
-		Transaction tx=session.beginTransaction();
+		Transaction tx=session.getTransaction();
 		//--------------------------------------
 		
 		User u1=new User();
@@ -28,5 +28,6 @@ public class hiber_test {
 		//--------------------------------------
 		tx.commit();
 		session.close();
+		sf.close();x
 	}
 }
