@@ -13,8 +13,16 @@
     <servlet-name>upload</servlet-name>
     <servlet-class>com.analysis.APK.Upload.java</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>loginJudge</servlet-name>
+    <servlet-class>com.analysis.user.loginJudge.java</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>upload</servlet-name>
     <url-pattern>/ApkAnalyzePlatform/uploadServlet/</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>loginJudge</servlet-name>
+    <url-pattern>/loginJudge</url-pattern>
   </servlet-mapping>
 </web-app>

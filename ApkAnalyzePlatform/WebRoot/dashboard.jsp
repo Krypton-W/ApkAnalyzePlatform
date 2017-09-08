@@ -178,7 +178,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!-- END HEADER -->
 
     <!-- //////////////////////////////////////////////////////////////////////////// -->
-
     <!-- START MAIN -->
     <div id="main">
         <!-- START WRAPPER -->
