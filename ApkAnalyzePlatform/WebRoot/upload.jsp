@@ -23,60 +23,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  
-  <script type="text/javascript">
-
-$(document).ready(function(){
-
-$("#form0").submit(function() {
-
-var filepath=$("input[name='myFile']").val();
-
-        var extStart=filepath.lastIndexOf(".");
-
-        var ext=filepath.substring(extStart,filepath.length).toUpperCase();
-
-        if(ext!=".BMP"&&ext!=".PNG"&&ext!=".GIF"&&ext!=".JPG"&&ext!=".JPEG"){
-
-         alert("图片限于bmp,png,gif,jpeg,jpg格式");
-
-         return false;
-
-        }
-
-       
-
-   var img=new Image();
-
-   img.src=filepath;  
-
-while(true){
-
-   if(img.fileSize>0){
-
-   if(img.fileSize>3*1024){      
-
-alert("图片不大于300KB。");
-
-return false;
-
-   }
-
-       break;
-
-   }
-
-}
-
-   return true;     
-
-});
-
-});
-
-</script>
+ 
     	<h3>上传apk文件</h3>
-    	<form method="post" enctype="multipart/form-data" action="/uploadServlet">
+    	<form method="post" enctype="multipart/form-data" action="/ApkAnalyzePlatform/uploadServlet/">
     		选择一个文件	<input type="file" name="uploadFile">
     		<br/>
     		<input type="submit" value="上传">
