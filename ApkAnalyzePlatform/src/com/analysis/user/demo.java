@@ -1,4 +1,4 @@
-package com.analysis.hibernate;
+package com.analysis.user;
 
 
 
