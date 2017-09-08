@@ -96,5 +96,9 @@ public class User implements java.io.Serializable {
 	public void setUpload(Boolean upload) {
 		this.upload = upload;
 	}
+	
+	public String toSting(){
+		return "User id = "+userId+" username = "+username+" password = "+password+" isAdmin = "+isAdmin;
+	}
 
 }

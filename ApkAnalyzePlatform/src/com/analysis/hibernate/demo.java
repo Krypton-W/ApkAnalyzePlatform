@@ -2,6 +2,9 @@ package com.analysis.hibernate;
 
 
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,6 +18,9 @@ public class demo {
 
 	@Test
 	public void fun1(){
+		String password ="123456";
+		String username = "Arch";
+		
 		Configuration conf = new Configuration().configure();
 		//2 根据配置信息,创建 SessionFactory对象
 		SessionFactory sf = conf.buildSessionFactory();
@@ -26,12 +32,19 @@ public class demo {
 		//开启事务并获得操作事务的tx对象(建议使用)
 		Transaction tx2 = session.beginTransaction();
 		//----------------------------------------------
-		
-		
+		User user = new User();  
+        Query q = session.createQuery("from User where username=? and password=?");  
+        q.setString(0, username);  
+        q.setString(1, password);  
+        user = (User)q.uniqueResult(); 
+        List<User> list=q.list();
+        for(int i=0;i<list.size();i++)
+        {
+        	System.out.println(list.get(i).toSting());
+        }
 		//----------------------------------------------
 		tx2.commit();//提交事务
-		tx2.rollback();//回滚事务
+		//tx2.rollback();//回滚事务
 		session.close();//释放资源
-		sf.close();//释放资源
 	}
 }
