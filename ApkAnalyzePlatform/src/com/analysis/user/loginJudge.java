@@ -61,7 +61,6 @@ public class loginJudge extends HttpServlet {
         Query q = session.createQuery("from User where username=? and password=?");  
         q.setString(0, username);  
         q.setString(1, password);  
-        user = (User)q.uniqueResult(); 
         List<User> list=q.list();
         if(list.size()>0)
         {

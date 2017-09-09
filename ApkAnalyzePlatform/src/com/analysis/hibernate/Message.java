@@ -59,5 +59,8 @@ public class Message implements java.io.Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String toString(){
+		return "messageId = "+messageId.toString()+" senderId = "+senderId.toString()+" receiverId = "+receiverId.toString()+" content = "+content;
+	}
 
 }

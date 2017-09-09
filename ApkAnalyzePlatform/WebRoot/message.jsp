@@ -1,4 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="org.hibernate.Query" %>
+<%@ page import="org.hibernate.Session" %>
+<%@ page import="org.hibernate.SessionFactory" %>
+<%@ page import="org.hibernate.Transaction" %>
+<%@ page import="org.hibernate.cfg.Configuration" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.analysis.hibernate.Message"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -6,14 +13,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-
-
+	
 <head>
 	<meta charset="utf-8"> 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     
-    <title>上传APK文件</title>
+    <title>DashBoard</title>
 
     <!-- CORE CSS-->    
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
@@ -23,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script type="text/javascript" src="FusionCharts/js/fusioncharts.js"></script>
 <script type="text/javascript" src="FusionCharts/js/themes/fusioncharts.theme.fint.js"></script>
+
 <style>
 	html{height:100%;}
 body{min-height:100%;margin:0;padding:0;position:relative;}
@@ -31,7 +38,6 @@ header{background-color: #ffe4c4;}
 main{padding-bottom:100px;background-color: #bdb76b;}/* main的padding-bottom值要等于或大于footer的height值 */
 footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc0cb;}
 </style>
-
 </head>
 
 <body>
@@ -48,7 +54,8 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
     <!-- End Page Loading -->
 
     <!-- //////////////////////////////////////////////////////////////////////////// -->
-
+    
+  
     <!-- START HEADER -->
     <header id="header" class="page-topbar">
         <!-- start header nav-->
@@ -89,9 +96,9 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
                     </li>
                     <li class="bold"><a href="dashboard.jsp" class="waves-effect waves-cyan"><i class="material-icons">toc</i> 控制台</a>
                     </li>
-                    <li class="bold active teal lighten-4"><a href="upload.jsp" class="waves-effect waves-cyan"><i class="material-icons">present_to_all</i> 文件上传</a>
+                    <li class="bold"><a href="upload.jsp" class="waves-effect waves-cyan"><i class="material-icons">present_to_all</i> 文件上传</a>
                     </li>
-                    <li class="bold"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知 <span class="new badge">4</span></a>
+                    <li class="bold active teal lighten-4"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知 <span class="new badge">4</span></a>
                     </li>
                     <li class="bold"><a href="statistic.jsp" class="waves-effect waves-cyan"><i class="material-icons">assessment</i> 统计管理</a>
                     </li>
@@ -133,32 +140,38 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
             <section id="content">
 
                 <!--start container-->
-                <div class="container">
+                <div class="container popout">
+                	 <ul class="collapsible" data-collapsible="accordion">
+                	 <%
+                	    Configuration conf = new Configuration().configure();
+						//2 根据配置信息,创建 SessionFactory对象
+						SessionFactory sf = conf.buildSessionFactory();
+						//3 获得session
+						Session session2 = sf.openSession();
+						//4 session获得操作事务的Transaction对象
+						//获得操作事务的tx对象
+						//Transaction tx = session.getTransaction();
+						//开启事务并获得操作事务的tx对象(建议使用)
+						Transaction tx2 = session2.beginTransaction();
+						//----------------------------------------------
+						Message message = new Message();  
+				        Query q = session2.createQuery("from Message where receiver_id=?");  
+				        q.setString(0, "1");  
+				        List<Message> list=q.list();
+				        if(list.size()>0)
+				        { 
+				        	 for(int i=0;i<list.size();i++)
+				        	 { %>
+				        		 <li>
+								      <div class="collapsible-header"><i class="material-icons">message</i>来自<%list.get(i).getSenderId(); %></div>
+								      <div class="collapsible-body"><p><%list.get(i).getContent(); %></p></div>
+								 </li>
+				        	<% }
+				        }
+                	  %>
+					</ul>
+                
 
-                    <h3>上传apk文件</h3>
-                    
-                    <form method="post" enctype="multipart/form-data" action="/ApkAnalyzePlatform/uploadServlet/" class="raw col s12">
-									    <div class="col s12 m6 l4 center-align">
-									    	<div class="row">
-									        <div class="input-field col s12 hoverable">
-									        	<input placeholder="文件" type="file" name="uploadFile" class="validate btn">
-									          <label for="first_name">选择一个文件	:</label>
-									        </div>
-									      </div>
-									      <div class="row">
-									        <input type="submit" value="上传" class="btn">
-									      </div>
-									      <!--<a href="dashboard.jsp" class="btn waves-effect right hoverable">登录</a>-->
-									      <!--<input type="submit" value="登录" class="btn waves-effect hoverable right text-black" />-->
-									    </div>
-									      
-					    			</form>
-<!--                    
-							    	<form method="post" enctype="multipart/form-data" action="/ApkAnalyzePlatform/uploadServlet/">
-							    		选择一个文件	<input type="file" name="uploadFile">
-							    		<br/>
-							    		<input type="submit" value="上传">
-    								</form>-->
                 </div>
                 <!--end container-->
             </section>
@@ -166,6 +179,7 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
 
             <!-- //////////////////////////////////////////////////////////////////////////// -->
             
+
         </div>
         <!-- END WRAPPER -->
 
@@ -187,7 +201,8 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
             </div>
           </div>
         </footer>
+    <!-- END FOOTER -->
+
 </body>
 
 </html>
-

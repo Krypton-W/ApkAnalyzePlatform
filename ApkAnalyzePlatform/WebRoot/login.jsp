@@ -27,7 +27,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+<style>
+	body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
 
+  main {
+    flex: 1 0 auto;
+  }
+</style>
 </head>
 
 <body>
@@ -80,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 		<br />
                 		<br />
                 		
-					    <form class="col s12">
+					    <form class="col s12" action="/ApkAnalyzePlatform/loginJudgepatten">
 					    <div class="col s12 m6 l4 center-align">
 					    	<div class="row">
 					        <div class="input-field col s12">
@@ -101,10 +111,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        </div>
 					      </div>
 					      <a href="dashboard.jsp" class="btn waves-effect right hoverable">登录</a>
-					      <!--<input type="submit" value="登录" class="btn waves-effect hoverable right text-black" />-->
+					      <!--<input type="submit" value="登录" class="btn waves-effect hoverable right text-black"  />-->
 					    </div>
 					      
 					    </form>
+					    <br />
+					    <br />
+					    <br />
+					    
 					  </div>
                 	
                 </div>
