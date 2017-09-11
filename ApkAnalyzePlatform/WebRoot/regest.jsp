@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     
-    <title>Login in</title>
+    <title>Login up</title>
 
     <!-- CORE CSS-->    
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
@@ -87,12 +87,12 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
                 		<br />
                 		<br />
                 		
-					    <form class="col s12" action="/ApkAnalyzePlatform/loginJudgepatten" method="post">
+					    <form class="col s12" action="/ApkAnalyzePlatform/loginJudgepatten">
 					    <div class="col s12 m6 l4 center-align">
 					    	<div class="row">
 					        <div class="input-field col s12">
 					          <input placeholder="用户名/邮箱" id="username" type="text" class="validate">
-					          <label for="first_name">账户</label>
+					          <label for="first_name">用户名/邮箱</label>
 					        </div>
 					      </div>
 					      <div class="row">
@@ -103,12 +103,17 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
 					      </div>
 					      <div class="row">
 					        <div class="input-field col s12">
-					          <input id="email" type="email" class="validate">
-					          <label for="email">邮件</label>
+					          <input id="password" type="password" class="validate">
+					          <label for="password">重复密码</label>
 					        </div>
 					      </div>
-					      <a href="regest.jsp" class="left">注册</a>
-					      <a href="loginJudgepatten" class="btn waves-effect right hoverable">登录</a>
+					      <div class="row">
+					        <div class="input-field col s12">
+					          <input id="email" type="email" class="validate">
+					          <label for="email">邮箱</label>
+					        </div>
+					      </div>
+					      <a href="login.jsp" class="btn waves-effect right hoverable">确认注册</a>
 					      <!--<input type="submit" value="登录" class="btn waves-effect hoverable right text-black"  />-->
 					    </div>
 					      

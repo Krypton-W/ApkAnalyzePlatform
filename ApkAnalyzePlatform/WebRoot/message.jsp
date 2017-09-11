@@ -6,6 +6,8 @@
 <%@ page import="org.hibernate.cfg.Configuration" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.analysis.hibernate.Message"%>
+<%@ page import="com.analysis.hibernate.User"%>
+<%@ page import="com.analysis.cfg.HibernateSessionFactory"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -140,10 +142,13 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
             <section id="content">
 
                 <!--start container-->
-                <div class="container popout">
-                	 <ul class="collapsible" data-collapsible="accordion">
+                <div class="container">
+                	<div class="row">
+                		<div class="col s12 m6 l6">
+                			<p class="flow-text">用户留言</p>
+                			<ul class="collapsible popout" data-collapsible="accordion">
                 	 <%
-                	    Configuration conf = new Configuration().configure();
+                	    /*Configuration conf = new Configuration().configure();
 						//2 根据配置信息,创建 SessionFactory对象
 						SessionFactory sf = conf.buildSessionFactory();
 						//3 获得session
@@ -152,26 +157,97 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
 						//获得操作事务的tx对象
 						//Transaction tx = session.getTransaction();
 						//开启事务并获得操作事务的tx对象(建议使用)
+						Transaction tx2 = session2.beginTransaction();*/
+						Session session2=HibernateSessionFactory.getSession();
 						Transaction tx2 = session2.beginTransaction();
 						//----------------------------------------------
 						Message message = new Message();  
-				        Query q = session2.createQuery("from Message where receiver_id=?");  
-				        q.setString(0, "1");  
+				        Query q = session2.createQuery("from Message where receiver_id = ? and sender_id != ?");  
+				        q.setParameter(0, "1");
+				        q.setParameter(1, "0");
+				        //q.setString(0, "1"); 
+				        //q.setString(1, "0"); 
 				        List<Message> list=q.list();
 				        if(list.size()>0)
 				        { 
 				        	 for(int i=0;i<list.size();i++)
-				        	 { %>
+				        	 { 
+				        	 	Integer sendid = list.get(i).getSenderId();
+				        	 	q=session2.createQuery("from User where user_id != ?");
+				        	 	q.setString(0, sendid.toString());
+				        	 	List<User> list2=q.list();
+				        	 	String username=list2.get(0).getUsername();
+				        	 %>
 				        		 <li>
-								      <div class="collapsible-header"><i class="material-icons">message</i>来自<%list.get(i).getSenderId(); %></div>
-								      <div class="collapsible-body"><p><%list.get(i).getContent(); %></p></div>
+								      <div class="collapsible-header"><i class="material-icons">message</i>来自<%=username%></div>
+								      <div class="collapsible-body"><p><%=list.get(i).getContent() %></p></div>
 								 </li>
 				        	<% }
 				        }
+				        /*//tool.closeSession();
+				        tx2.commit();//提交事务
+						//tx2.rollback();//回滚事务
+						session2.close();//释放资源*/
+						tx2.commit();
+        				//HibernateSessionFactory.closeSession();
                 	  %>
 					</ul>
                 
-
+                		</div>
+                		<div class="col s12 m6 l6">
+                			<p class="flow-text">系统通知</p>
+                			<ul class="collapsible popout" data-collapsible="accordion">
+                	 <%
+                	    /*Configuration conf = new Configuration().configure();
+						//2 根据配置信息,创建 SessionFactory对象
+						SessionFactory sf = conf.buildSessionFactory();
+						//3 获得session
+						Session session2 = sf.openSession();
+						//4 session获得操作事务的Transaction对象
+						//获得操作事务的tx对象
+						//Transaction tx = session.getTransaction();
+						//开启事务并获得操作事务的tx对象(建议使用)
+						Transaction tx2 = session2.beginTransaction();*/
+						Session session3=HibernateSessionFactory.getSession();
+						Transaction tx3 = session2.beginTransaction();
+						//----------------------------------------------
+						Message message2 = new Message();  
+				        Query q2 = session3.createQuery("from Message where receiver_id = ? and sender_id != ?");  
+				        q2.setParameter(0, "1");
+				        q2.setParameter(1, "0");
+				        //q.setString(0, "1"); 
+				        //q.setString(1, "0"); 
+				        List<Message> list2=q2.list();
+				        if(list2.size()>0)
+				        { 
+				        	 for(int i=0;i<list2.size();i++)
+				        	 { 
+				        	 	Integer sendid2 = list2.get(i).getSenderId();
+				        	 	q2=session3.createQuery("from User where user_id != ?");
+				        	 	q2.setString(0, sendid2.toString());
+				        	 	List<User> list3=q.list();
+				        	 	String username=list3.get(0).getUsername();
+				        	 %>
+				        		 <li>
+								      <div class="collapsible-header"><i class="material-icons">message</i>来自<%=username%></div>
+								      <div class="collapsible-body"><p><%=list2.get(i).getContent() %></p></div>
+								 </li>
+				        	<% }
+				        }
+				        /*//tool.closeSession();
+				        tx2.commit();//提交事务
+						//tx2.rollback();//回滚事务
+						session2.close();//释放资源*/
+						tx3.commit();
+        				HibernateSessionFactory.closeSession();
+                	  %>
+					</ul>
+                
+                			
+                		</div>
+                		
+                	</div>
+                	 
                 </div>
                 <!--end container-->
             </section>

@@ -166,11 +166,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="js/materialize.min.js"></script>
     
     <!-- Start Page Loading -->
-    <!--<div id="loader-wrapper">
+    <div id="loader-wrapper">
         <div id="loader"></div>        
         <div class="loader-section section-left"></div>
         <div class="loader-section section-right"></div>
-    </div>-->
+    </div>
     <!-- End Page Loading -->
 
     <!-- //////////////////////////////////////////////////////////////////////////// -->

@@ -25,6 +25,6 @@
   
     <servlet-mapping>  
         <servlet-name>LJudge</servlet-name>  
-        <url-pattern>/loginJudgepatten</url-pattern>  
+        <url-pattern>/ApkAnalyzePlatform/loginJudgepatten</url-pattern>  
     </servlet-mapping>  
 </web-app>
