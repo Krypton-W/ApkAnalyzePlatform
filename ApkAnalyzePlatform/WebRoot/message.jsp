@@ -179,7 +179,7 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
 				        	 	String username=list2.get(0).getUsername();
 				        	 %>
 				        		 <li>
-								      <div class="collapsible-header"><i class="material-icons">message</i>来自<%=username%></div>
+								      <div class="collapsible-header"><i class="material-icons">speaker_notes</i>来自<%=username%></div>
 								      <div class="collapsible-body"><p><%=list.get(i).getContent() %></p></div>
 								 </li>
 				        	<% }
@@ -222,6 +222,7 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
 				        { 
 				        	 for(int i=0;i<list2.size();i++)
 				        	 { 
+				        	 	//list2.get(i).setIs_read(true);
 				        	 	Integer sendid2 = list2.get(i).getSenderId();
 				        	 	q2=session3.createQuery("from User where user_id != ?");
 				        	 	q2.setString(0, sendid2.toString());
@@ -247,7 +248,40 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
                 		</div>
                 		
                 	</div>
-                	 
+                	
+                	<br />
+                	<div class="divider"></div>
+                	<br />
+                	<div class="container">
+                		<div class="row">
+                			<div class="col s12 card hoverable">
+                				<form class="col s12" action="/ApkAnalyzePlatform/message" method="post">
+							      <div class="row">
+							        <div class="input-field col s2">
+							          <input placeholder="用户名" id="receiver_id" type="text" class="validate">
+							          <label for="first_name">接收方：</label>
+							        </div>
+							      </div>
+							      <br />
+							      <div class="row">
+							          <div class="input-field col s11">
+							          	<input placeholder="留言内容" id="content" type="text" class="validate">
+							          	<label for="first_name">留言：</label>
+							          </div>
+							      </div>
+							      <a class="col s1 btn waves-effect waves-light right">留言</a>
+							      <br />
+							    </form>
+							    <br />
+                			</div>
+						    
+						</div>
+                		<br />
+                	</div>
+                	<br />
+                	<br />
+                	<br />
+                	
                 </div>
                 <!--end container-->
             </section>
@@ -271,6 +305,7 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
           <div class="container">
              Copyright MonsterFucker Team © 2017   All rights reserved.
           </div>
+          <br />
           <div class="footer-copyright">
             <div class="container">
             © Design and Developed by MonsterFucker

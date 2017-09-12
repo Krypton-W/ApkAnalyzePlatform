@@ -12,6 +12,7 @@ public class Message implements java.io.Serializable {
 	private Integer senderId;
 	private Integer receiverId;
 	private String content;
+	private Boolean isRead;
 
 	// Constructors
 
@@ -19,11 +20,19 @@ public class Message implements java.io.Serializable {
 	public Message() {
 	}
 
-	/** full constructor */
+	/** minimal constructor */
 	public Message(Integer senderId, Integer receiverId, String content) {
 		this.senderId = senderId;
 		this.receiverId = receiverId;
 		this.content = content;
+	}
+
+	/** full constructor */
+	public Message(Integer senderId, Integer receiverId, String content, Boolean isRead) {
+		this.senderId = senderId;
+		this.receiverId = receiverId;
+		this.content = content;
+		this.isRead = isRead;
 	}
 
 	// Property accessors
@@ -59,8 +68,13 @@ public class Message implements java.io.Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String toString(){
-		return "messageId = "+messageId.toString()+" senderId = "+senderId.toString()+" receiverId = "+receiverId.toString()+" content = "+content;
+
+	public Boolean getIsRead() {
+		return this.isRead;
+	}
+
+	public void setIsRead(Boolean isRead) {
+		this.isRead = isRead;
 	}
 
 }

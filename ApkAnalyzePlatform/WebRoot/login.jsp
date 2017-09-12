@@ -35,6 +35,8 @@ header{background-color: #ffe4c4;}
 main{padding-bottom:100px;background-color: #bdb76b;}/* main的padding-bottom值要等于或大于footer的height值 */
 footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc0cb;}
 </style>
+
+
 </head>
 
 <body>
@@ -86,30 +88,24 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
                 		<br />
                 		<br />
                 		<br />
-                		
+                		<br />
 					    <form class="col s12" action="/ApkAnalyzePlatform/loginJudgepatten" method="post">
 					    <div class="col s12 m6 l4 center-align">
 					    	<div class="row">
 					        <div class="input-field col s12">
-					          <input placeholder="用户名/邮箱" id="username" type="text" class="validate">
-					          <label for="first_name">账户</label>
+					          <input placeholder="用户名/邮箱" name="username" type="text" class="validate">
+					          <label for="username">账户</label>
 					        </div>
 					      </div>
 					      <div class="row">
 					        <div class="input-field col s12">
-					          <input id="password" type="password" class="validate">
+					          <input id="password" name="password" type="password" class="validate">
 					          <label for="password">密码</label>
 					        </div>
 					      </div>
-					      <div class="row">
-					        <div class="input-field col s12">
-					          <input id="email" type="email" class="validate">
-					          <label for="email">邮件</label>
-					        </div>
-					      </div>
 					      <a href="regest.jsp" class="left">注册</a>
-					      <a href="loginJudgepatten" class="btn waves-effect right hoverable">登录</a>
-					      <!--<input type="submit" value="登录" class="btn waves-effect hoverable right text-black"  />-->
+					      <!--<a href="/ApkAnalyzePlatform/loginJudgepatten" class="btn waves-effect right hoverable">登录</a>-->
+					      <input type="submit" value="登录" class="right btn"  />
 					    </div>
 					      
 					    </form>
@@ -148,6 +144,7 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
             </div>
           </div>
         </footer>
+        
     <!-- END FOOTER -->
 </body>
 

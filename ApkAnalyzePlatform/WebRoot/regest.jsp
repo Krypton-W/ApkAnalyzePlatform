@@ -86,38 +86,36 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
                 		<br />
                 		<br />
                 		<br />
-                		
-					    <form class="col s12" action="/ApkAnalyzePlatform/loginJudgepatten">
+                		<form class="col s12" action="/ApkAnalyzePlatform/regestpatten" method="post">
 					    <div class="col s12 m6 l4 center-align">
 					    	<div class="row">
 					        <div class="input-field col s12">
-					          <input placeholder="用户名/邮箱" id="username" type="text" class="validate">
-					          <label for="first_name">用户名/邮箱</label>
+					          <input placeholder="用户名/邮箱" name="username" type="text" class="validate">
+					          <label for="username">账户</label>
 					        </div>
 					      </div>
 					      <div class="row">
 					        <div class="input-field col s12">
-					          <input id="password" type="password" class="validate">
+					          <input id="password" name="password" type="password" class="validate">
 					          <label for="password">密码</label>
 					        </div>
 					      </div>
 					      <div class="row">
 					        <div class="input-field col s12">
-					          <input id="password" type="password" class="validate">
-					          <label for="password">重复密码</label>
+					          <input id="password2" name="password2" type="password" class="validate">
+					          <label for="password2">重复密码</label>
 					        </div>
 					      </div>
 					      <div class="row">
-					        <div class="input-field col s12">
-					          <input id="email" type="email" class="validate">
-					          <label for="email">邮箱</label>
-					        </div>
-					      </div>
-					      <a href="login.jsp" class="btn waves-effect right hoverable">确认注册</a>
-					      <!--<input type="submit" value="登录" class="btn waves-effect hoverable right text-black"  />-->
+						      <div class="input-field col s12">
+						          <input id="email" name="email" type="email" class="validate">
+						          <label for="email">邮箱</label>
+						        </div>
+					       </div>
+					      <!--<a href="/ApkAnalyzePlatform/loginJudgepatten" class="btn waves-effect right hoverable">登录</a>-->
+					      <input type="submit" value="注册" class="right"  />
 					    </div>
-					      
-					    </form>
+					    
 					    <br />
 					    <br />
 					    <br />

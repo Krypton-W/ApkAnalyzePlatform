@@ -1,4 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="org.hibernate.Query" %>
+<%@ page import="org.hibernate.Session" %>
+<%@ page import="org.hibernate.SessionFactory" %>
+<%@ page import="org.hibernate.Transaction" %>
+<%@ page import="org.hibernate.cfg.Configuration" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.analysis.hibernate.Message"%>
+<%@ page import="com.analysis.hibernate.User"%>
+<%@ page import="com.analysis.cfg.HibernateSessionFactory"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -161,6 +170,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
+<%
+Object user_id=request.getSession().getAttribute("user_id");
+Object username=request.getSession().getAttribute("username");
+Object is_admin=request.getSession().getAttribute("is_admin");
+System.out.println(username+" "+is_admin);
+int un_read_num=0;
+Session session2=HibernateSessionFactory.getSession();
+Transaction tx2 = session2.beginTransaction();
+//----------------------------------------------
+Message message = new Message();  
+Query q = session2.createQuery("from Message where receiver_id = ?");  
+q.setParameter(0, user_id.toString());
+System.out.println("user_id = "+user_id.toString());
+List<Message> list=q.list();
+System.out.println("list size = "+list.size());
+for(int i=0;i<list.size();i++)
+{
+	if(!list.get(i).getIsRead())
+		un_read_num++;
+}
+System.out.println(un_read_num);
+tx2.commit();
+HibernateSessionFactory.closeSession();
+ %>
+
+
 		<!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -205,10 +240,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <!--选项-->
                          
                                 <!--用户名-->
-                                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" data-activates="profile-dropdown">John Doe</a>
+                                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" data-activates="profile-dropdown"><%=username%></a>
                                 
                                 <!--用户权限-->
-                                <p class="user-roal">管理员</p>              
+                                <p class="user-roal"><%
+                                if((Boolean)is_admin)
+                                {
+                                	%>管理员<%
+                                }
+                                else
+                                {
+                                	%>用户<%
+                                }
+                                 %></p>              
                                 
                             </div>
                         </div>
@@ -217,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </li>
                     <li class="bold"><a href="upload.jsp" class="waves-effect waves-cyan"><i class="material-icons">present_to_all</i> 文件上传</a>
                     </li>
-                    <li class="bold"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知 <span class="new badge">4</span></a>
+                    <li class="bold"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知 <span class="new badge"><%=un_read_num %></span></a>
                     </li>
                     <li class="bold"><a href="statistic.jsp" class="waves-effect waves-cyan"><i class="material-icons">assessment</i> 统计管理</a>
                     </li>
@@ -852,11 +896,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     // Toast Notification
     $(window).load(function() {
         setTimeout(function() {
-            Materialize.toast('<span>Hiya! I am a toast.</span>', 1500);
+            Materialize.toast('<span>Hi! Welcome to Dashboard  <%=username %></span>', 1500);
         }, 3000);
         setTimeout(function() {
-            Materialize.toast('<span>You can swipe me too!</span>', 3000);
-        }, 5500);
+            Materialize.toast('<span>You have <%=un_read_num%> new message!</span><a class="btn-flat yellow-text" href="message.jsp">Read<a>', 6000);
+        }, 4000);
         setTimeout(function() {
             Materialize.toast('<span>You have new order.</span><a class="btn-flat yellow-text" href="#">Read<a>', 3000);
         }, 18000);

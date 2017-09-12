@@ -15,16 +15,30 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>upload</servlet-name>
-    <url-pattern>/ApkAnalyzePlatform/uploadServlet</url-pattern>
+    <url-pattern>/uploadServlet</url-pattern>
   </servlet-mapping>
-  
-  <servlet>  
-        <servlet-name>LJudge</servlet-name>  
-        <servlet-class>com.analysis.user.loginJudge</servlet-class>  
-    </servlet>  
-  
-    <servlet-mapping>  
-        <servlet-name>LJudge</servlet-name>  
-        <url-pattern>/ApkAnalyzePlatform/loginJudgepatten</url-pattern>  
-    </servlet-mapping>  
-</web-app>
+  <servlet>
+    <servlet-name>LJudge</servlet-name>
+    <servlet-class>com.analysis.user.loginJudge</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LJudge</servlet-name>
+    <url-pattern>/loginJudgepatten</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>message</servlet-name>
+    <servlet-class>com.analysis.message.messageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>message</servlet-name>
+    <url-pattern>/message</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Regest</servlet-name>
+    <servlet-class>com.analysis.user.regest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Regest</servlet-name>
+    <url-pattern>/regestpatten</url-pattern>
+  </servlet-mapping>
+  </web-app>
