@@ -171,6 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 <%
+//request.setCharacterEncoding("utf-8");
 Object user_id=request.getSession().getAttribute("user_id");
 Object username=request.getSession().getAttribute("username");
 Object is_admin=request.getSession().getAttribute("is_admin");
@@ -261,7 +262,7 @@ HibernateSessionFactory.closeSession();
                     </li>
                     <li class="bold"><a href="upload.jsp" class="waves-effect waves-cyan"><i class="material-icons">present_to_all</i> 文件上传</a>
                     </li>
-                    <li class="bold"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知 <span class="new badge"><%=un_read_num %></span></a>
+                    <li class="bold"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知 <%if(un_read_num>0){ %>><span class="new badge"><%=un_read_num %></span><%} %></a>
                     </li>
                     <li class="bold"><a href="statistic.jsp" class="waves-effect waves-cyan"><i class="material-icons">assessment</i> 统计管理</a>
                     </li>
@@ -272,8 +273,6 @@ HibernateSessionFactory.closeSession();
 
                     <li class="li-hover"><div class="divider"></div></li>
                     <li class="li-hover"><p class="ultra-small margin more-text">MORE</p></li>
-                    <li><a href="setting.jsp"><i class="material-icons">info</i> 设置</a>
-                    </li> 
                     <li><a href="help.jsp"><i class="material-icons">star</i>帮助</a>
                     </li>                  
                     <li>
@@ -833,7 +832,7 @@ HibernateSessionFactory.closeSession();
     <!-- //////////////////////////////////////////////////////////////////////////// -->
 
     <!-- START FOOTER -->
-    <footer class="page-footer">
+    <footer class="page-footer z-depth-3">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
@@ -896,11 +895,13 @@ HibernateSessionFactory.closeSession();
     // Toast Notification
     $(window).load(function() {
         setTimeout(function() {
-            Materialize.toast('<span>Hi! Welcome to Dashboard  <%=username %></span>', 1500);
+            Materialize.toast('<span>Hi! Welcome to Dashboard  <%=username %></span>', 2500);
         }, 3000);
+        <%if(un_read_num>0){ %>
         setTimeout(function() {
             Materialize.toast('<span>You have <%=un_read_num%> new message!</span><a class="btn-flat yellow-text" href="message.jsp">Read<a>', 6000);
-        }, 4000);
+        }, 4500);
+        <%}%>
         setTimeout(function() {
             Materialize.toast('<span>You have new order.</span><a class="btn-flat yellow-text" href="#">Read<a>', 3000);
         }, 18000);

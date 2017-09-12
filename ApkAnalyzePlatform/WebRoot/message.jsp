@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     
-    <title>DashBoard</title>
+    <title>Message</title>
 
     <!-- CORE CSS-->    
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
@@ -43,6 +43,34 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
 </head>
 
 <body>
+<%
+//request.setCharacterEncoding("utf-8");
+Object user_id=request.getSession().getAttribute("user_id");
+Object username=request.getSession().getAttribute("username");
+Object is_admin=request.getSession().getAttribute("is_admin");
+//Object is_admin=request.getSession().getAttribute("is_admin");
+//System.out.println(username+" "+is_admin);
+int un_read_num=0;
+Session session2=HibernateSessionFactory.getSession();
+Transaction tx2 = session2.beginTransaction();
+//----------------------------------------------
+Message message = new Message();  
+Query q = session2.createQuery("from Message where receiver_id = ?");  
+q.setParameter(0, user_id.toString());
+//System.out.println("user_id = "+user_id.toString());
+List<Message> list=q.list();
+//System.out.println("list size = "+list.size());
+/*for(int i=0;i<list.size();i++)
+{
+	if(!list.get(i).getIsRead())
+		un_read_num++;
+}
+System.out.println(un_read_num);*/
+//tx2.commit();
+//HibernateSessionFactory.closeSession();
+ %>
+
+
 		<!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -88,10 +116,19 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
                             <!--选项-->
                          
                                 <!--用户名-->
-                                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" data-activates="profile-dropdown">John Doe</a>
+                                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" data-activates="profile-dropdown"><%=username %></a>
                                 
                                 <!--用户权限-->
-                                <p class="user-roal">管理员</p>              
+                                <p class="user-roal"><%
+                                if((Boolean)is_admin)
+                                {
+                                	%>管理员<%
+                                }
+                                else
+                                {
+                                	%>用户<%
+                                }
+                                 %></p>              
                                 
                             </div>
                         </div>
@@ -100,7 +137,7 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
                     </li>
                     <li class="bold"><a href="upload.jsp" class="waves-effect waves-cyan"><i class="material-icons">present_to_all</i> 文件上传</a>
                     </li>
-                    <li class="bold active teal lighten-4"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知 <span class="new badge">4</span></a>
+                    <li class="bold active teal lighten-4"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知</a>
                     </li>
                     <li class="bold"><a href="statistic.jsp" class="waves-effect waves-cyan"><i class="material-icons">assessment</i> 统计管理</a>
                     </li>
@@ -111,8 +148,6 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
 
                     <li class="li-hover"><div class="divider"></div></li>
                     <li class="li-hover"><p class="ultra-small margin more-text">MORE</p></li>
-                    <li><a href="setting.jsp"><i class="material-icons">info</i> 设置</a>
-                    </li> 
                     <li><a href="help.jsp"><i class="material-icons">star</i>帮助</a>
                     </li>                  
                     <li>
@@ -148,48 +183,36 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
                 			<p class="flow-text">用户留言</p>
                 			<ul class="collapsible popout" data-collapsible="accordion">
                 	 <%
-                	    /*Configuration conf = new Configuration().configure();
-						//2 根据配置信息,创建 SessionFactory对象
-						SessionFactory sf = conf.buildSessionFactory();
-						//3 获得session
-						Session session2 = sf.openSession();
-						//4 session获得操作事务的Transaction对象
-						//获得操作事务的tx对象
-						//Transaction tx = session.getTransaction();
-						//开启事务并获得操作事务的tx对象(建议使用)
-						Transaction tx2 = session2.beginTransaction();*/
-						Session session2=HibernateSessionFactory.getSession();
-						Transaction tx2 = session2.beginTransaction();
-						//----------------------------------------------
-						Message message = new Message();  
-				        Query q = session2.createQuery("from Message where receiver_id = ? and sender_id != ?");  
-				        q.setParameter(0, "1");
-				        q.setParameter(1, "0");
-				        //q.setString(0, "1"); 
-				        //q.setString(1, "0"); 
-				        List<Message> list=q.list();
 				        if(list.size()>0)
 				        { 
 				        	 for(int i=0;i<list.size();i++)
 				        	 { 
+				        	  int num=0;
 				        	 	Integer sendid = list.get(i).getSenderId();
-				        	 	q=session2.createQuery("from User where user_id != ?");
+				        	 	q=session2.createQuery("from User where user_id = ?");
+				        	 	System.out.println("send_id = "+sendid.toString()+"ok");
 				        	 	q.setString(0, sendid.toString());
 				        	 	List<User> list2=q.list();
-				        	 	String username=list2.get(0).getUsername();
+				        	 	if(list2.size()>0){
+				        	 	String from = list2.get(0).getUsername();
+				        	 	if(!list2.get(0).getIsAdmin()){
+				        	 	num++;
 				        	 %>
 				        		 <li>
-								      <div class="collapsible-header"><i class="material-icons">speaker_notes</i>来自<%=username%></div>
+								      <div class="collapsible-header"><i class="material-icons">textsms</i>来自<%=from%></div>
 								      <div class="collapsible-body"><p><%=list.get(i).getContent() %></p></div>
 								 </li>
-				        	<% }
+				        	<% 		}
+				        		}
+				        		System.out.println("********num = "+num);
+				        		if(num==0)
+				        		{
+				        			%>
+				        			<p class="flow-text">暂时没有消息</p>
+				        			<%
+				        		}
+				        	}
 				        }
-				        /*//tool.closeSession();
-				        tx2.commit();//提交事务
-						//tx2.rollback();//回滚事务
-						session2.close();//释放资源*/
-						tx2.commit();
-        				//HibernateSessionFactory.closeSession();
                 	  %>
 					</ul>
                 
@@ -198,48 +221,32 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
                 			<p class="flow-text">系统通知</p>
                 			<ul class="collapsible popout" data-collapsible="accordion">
                 	 <%
-                	    /*Configuration conf = new Configuration().configure();
-						//2 根据配置信息,创建 SessionFactory对象
-						SessionFactory sf = conf.buildSessionFactory();
-						//3 获得session
-						Session session2 = sf.openSession();
-						//4 session获得操作事务的Transaction对象
-						//获得操作事务的tx对象
-						//Transaction tx = session.getTransaction();
-						//开启事务并获得操作事务的tx对象(建议使用)
-						Transaction tx2 = session2.beginTransaction();*/
-						Session session3=HibernateSessionFactory.getSession();
-						Transaction tx3 = session2.beginTransaction();
-						//----------------------------------------------
-						Message message2 = new Message();  
-				        Query q2 = session3.createQuery("from Message where receiver_id = ? and sender_id != ?");  
-				        q2.setParameter(0, "1");
-				        q2.setParameter(1, "0");
-				        //q.setString(0, "1"); 
-				        //q.setString(1, "0"); 
-				        List<Message> list2=q2.list();
-				        if(list2.size()>0)
-				        { 
-				        	 for(int i=0;i<list2.size();i++)
+				        if(list.size()>0)
+				        {  
+				        	int num=0;
+				        	 for(int i=0;i<list.size();i++)
 				        	 { 
-				        	 	//list2.get(i).setIs_read(true);
-				        	 	Integer sendid2 = list2.get(i).getSenderId();
-				        	 	q2=session3.createQuery("from User where user_id != ?");
-				        	 	q2.setString(0, sendid2.toString());
-				        	 	List<User> list3=q.list();
-				        	 	String username=list3.get(0).getUsername();
-				        	 %>
-				        		 <li>
-								      <div class="collapsible-header"><i class="material-icons">message</i>来自<%=username%></div>
-								      <div class="collapsible-body"><p><%=list2.get(i).getContent() %></p></div>
+				        	 	Integer sendid = list.get(i).getSenderId();
+				        	 	q=session2.createQuery("from User where user_id = ?");
+				        	 	q.setString(0, sendid.toString());
+				        	 	List<User> list2=q.list();
+				        	 	if(list2.size()>0){
+				        	 	String from = list2.get(0).getUsername();
+				        	 	if(list2.get(0).getIsAdmin())
+				        	 	{ num++;
+				        	 	%>
+				        	 	 <li>
+								      <div class="collapsible-header"><i class="material-icons">message</i>来自<%=from%></div>
+								      <div class="collapsible-body"><p><%=list.get(i).getContent() %></p></div>
 								 </li>
-				        	<% }
+				        	 	<%}}
+				        	 }
+				        	 if(num==0)
+				        	 {
+				        	 	%><p class="flow-text">暂时没有消息</p><%
+				        	 }
 				        }
-				        /*//tool.closeSession();
-				        tx2.commit();//提交事务
-						//tx2.rollback();//回滚事务
-						session2.close();//释放资源*/
-						tx3.commit();
+						tx2.commit();
         				HibernateSessionFactory.closeSession();
                 	  %>
 					</ul>
@@ -255,21 +262,22 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
                 	<div class="container">
                 		<div class="row">
                 			<div class="col s12 card hoverable">
-                				<form class="col s12" action="/ApkAnalyzePlatform/message" method="post">
+                				<form class="col s12" action="/ApkAnalyzePlatform/messagepatten" method="post">
 							      <div class="row">
 							        <div class="input-field col s2">
-							          <input placeholder="用户名" id="receiver_id" type="text" class="validate">
-							          <label for="first_name">接收方：</label>
+							          <input placeholder="用户名" id="receiver_id" name="to" type="text" class="validate">
+							          <label for="receiver_id">接收方：</label>
 							        </div>
 							      </div>
 							      <br />
 							      <div class="row">
 							          <div class="input-field col s11">
-							          	<input placeholder="留言内容" id="content" type="text" class="validate">
-							          	<label for="first_name">留言：</label>
+							          	<input placeholder="留言内容" id="content" name="content" type="text" class="validate">
+							          	<label for="content">留言：</label>
 							          </div>
 							      </div>
-							      <a class="col s1 btn waves-effect waves-light right">留言</a>
+							      <input type="submit" value="留言"  onclick="Materialize.toast('留言已发送', 4000)" class="right btn"  />
+							      <!--<a class="col s1 btn waves-effect waves-light right">留言</a>-->
 							      <br />
 							    </form>
 							    <br />
@@ -295,9 +303,10 @@ footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc
 
     </div>
     <!-- END MAIN -->
-
-
-
+    
+    <br />
+<br />
+<br />
     <!-- //////////////////////////////////////////////////////////////////////////// -->
 
     <!-- START FOOTER -->

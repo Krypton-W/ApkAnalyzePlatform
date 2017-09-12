@@ -26,12 +26,12 @@
     <url-pattern>/loginJudgepatten</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>message</servlet-name>
+    <servlet-name>Message</servlet-name>
     <servlet-class>com.analysis.message.messageServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>message</servlet-name>
-    <url-pattern>/message</url-pattern>
+    <servlet-name>Message</servlet-name>
+    <url-pattern>/messagepatten</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Regest</servlet-name>

@@ -1,16 +1,20 @@
 package com.analysis.message;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.analysis.cfg.HibernateSessionFactory;
+import com.analysis.hibernate.Message;
 import com.analysis.hibernate.User;
 
 /**
@@ -41,37 +45,47 @@ public class messageServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//request.setCharacterEncoding("utf-8");
 		System.out.println("ok messagetPost success!");
-		String password =request.getParameter("password");
-		String password2 =request.getParameter("password2");
-		String username = request.getParameter("username");
-		String email = request.getParameter("email");
-		System.out.println(username+" ok and "+password+" ok");
+		Object user_id=request.getSession().getAttribute("user_id");
+		String to =request.getParameter("to");
+		String content =request.getParameter("content");
+		System.out.println(to+" ok and "+content+" ok");
 		//----------------------------------------------
-		if(!password.equals(password2))
+		if(to.isEmpty())
 		{
-			//response.setCharacterEncoding("UTF-8");
-			response.getWriter().print("<script>alert(\"passwords should be the same\");window.history.back();</script>");
+			response.getWriter().print("<script>alert(\"username shouldn't be void.\");window.history.back();</script>");
 		}
-		if(email.isEmpty())
+		else if(content.isEmpty())
 		{
-			response.getWriter().print("<script>alert(\"Email shouldn't be void.\");window.history.back();</script>");
+			response.getWriter().print("<script>alert(\"content shouldn't be void.\");window.history.back();</script>");
+		}
+		else if(to.equals("all"))
+		{
+			
 		}
 		else
 		{
 			Session session=HibernateSessionFactory.getSession();
 			Transaction tx = session.beginTransaction();
-			User user = new User();
-			user.setUsername(username);
-			user.setPassword(password);
-			user.setIsAdmin(false);
-			user.setUpload(true);
-			user.setDownload(true);
-			user.setFileSize(1024);
-			session.save(user);
-			request.getRequestDispatcher("/dashboard.jsp").forward(request,response);
+		
+			Message message = new Message();
+			message.setContent(content);
+			message.setSenderId((Integer)user_id);
+			message.setIsRead(false);
+			
+			Query q = session.createQuery("from User where username=?");  
+	        q.setString(0, to);   
+	        List<User> list=q.list();
+			for(int i=0;i<list.size();i++)
+			{
+				message.setReceiverId(list.get(i).getUserId());
+				session.save(message);
+			}
+			
 	        tx.commit();
 	        HibernateSessionFactory.closeSession();
+	        response.sendRedirect("/ApkAnalyzePlatform/message.jsp");
 		}  
 		
 		
