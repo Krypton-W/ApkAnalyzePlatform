@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     
-    <title>Message</title>
+    <title>用户管理</title>
 
     <!-- CORE CSS-->    
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
@@ -40,7 +40,6 @@ header{background-color: #ffe4c4;}
 main{padding-bottom:100px;background-color: #bdb76b;}/* main的padding-bottom值要等于或大于footer的height值 */
 footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc0cb;}
 </style>
-
 </head>
 
 <body>
@@ -138,11 +137,11 @@ System.out.println(un_read_num);*/
                     </li>
                     <li class="bold"><a href="upload.jsp" class="waves-effect waves-cyan"><i class="material-icons">present_to_all</i> 文件上传</a>
                     </li>
-                    <li class="bold active teal lighten-4"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知</a>
+                    <li class="bold"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知</a>
                     </li>
                     <li class="bold"><a href="statistic.jsp" class="waves-effect waves-cyan"><i class="material-icons">assessment</i> 统计管理</a>
                     </li>
-                    <li class="bold"><a href="usermanager.jsp" class="waves-effect waves-cyan"><i class="material-icons">perm_identity</i> 用户管理</a>
+                    <li class="bold  active teal lighten-4"><a href="usermanager.jsp" class="waves-effect waves-cyan"><i class="material-icons">perm_identity</i> 用户管理</a>
                     </li>
                     <li class="bold"><a href="search.jsp" class="waves-effect waves-cyan"><i class="material-icons">search</i> 查找</a>
                     </li>
@@ -179,120 +178,28 @@ System.out.println(un_read_num);*/
 
                 <!--start container-->
                 <div class="container">
-                	<div class="row">
-                		<div class="col s12 m6 l6">
-                			<p class="flow-text">用户留言</p>
-                			<ul class="collapsible popout" data-collapsible="accordion">
-                	 <%
-				        if(list.size()>0)
-				        { 
-				        	  int num2=0;
-				        	 for(int i=0;i<list.size();i++)
-				        	 { 
-				        	 	Integer sendid = list.get(i).getSenderId();
-				        	 	q=session2.createQuery("from User where user_id = ?");
-				        	 	System.out.println("send_id = "+sendid.toString()+"ok");
-				        	 	q.setString(0, sendid.toString());
-				        	 	List<User> list2=q.list();
-				        	 	if(list2.size()>0){
-				        	 	String from = list2.get(0).getUsername();
-				        	 	if(!list2.get(0).getIsAdmin()){
-				        	 	num2++;
-				        	 %>
-				        		 <li>
-								      <div class="collapsible-header"><i class="material-icons">textsms</i>来自<%=from%></div>
-								      <div class="collapsible-body"><p><%=list.get(i).getContent() %></p></div>
-								 </li>
-				        	<% 		}
-				        		}
-				        		//System.out.println("********num = "+num);
-				        	}
-				        	
-				        		if(num2==0)
-				        		{
-				        			%>
-				        			<p>  暂时没有消息</p>
-				        			<%
-				        		}
-				        }
-                	  %>
+               
+                	<a class='dropdown-button btn-flat' href='#' data-activates='topics_dropdown' data-hover="true">用户</a>
+					<ul id='topics_dropdown' class='dropdown-content'>
+					    <li>
+					      <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="1" />
+					      <label for="report_topics_409928004">Engagement</label>
+					    </li>
+					    <li>
+					      <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="1" />
+					      <label for="report_topics_669658064">Appraisal</label>
+					    </li>
+					
+					
 					</ul>
-                
-                		</div>
-                		<div class="col s12 m6 l6">
-                			<p class="flow-text">系统通知</p>
-                			<ul class="collapsible popout" data-collapsible="accordion">
-                	 <%
-				        if(list.size()>0)
-				        {  
-				        	int num=0;
-				        	 for(int i=0;i<list.size();i++)
-				        	 { 
-				        	 	Integer sendid = list.get(i).getSenderId();
-				        	 	q=session2.createQuery("from User where user_id = ?");
-				        	 	q.setString(0, sendid.toString());
-				        	 	List<User> list2=q.list();
-				        	 	if(list2.size()>0){
-				        	 	String from = list2.get(0).getUsername();
-				        	 	if(list2.get(0).getIsAdmin())
-				        	 	{ num++;
-				        	 	%>
-				        	 	 <li>
-								      <div class="collapsible-header"><i class="material-icons">message</i>来自<%=from%></div>
-								      <div class="collapsible-body"><p><%=list.get(i).getContent() %></p></div>
-								 </li>
-				        	 	<%}}
-				        	 }
-				        	 if(num==0)
-				        	 {
-				        	 	%>
-				        	 	<p>  暂时没有消息</p>
-				        	 	<%
-				        	 }
-				        }
-						tx2.commit();
-        				HibernateSessionFactory.closeSession();
-                	  %>
-					</ul>
-                
-                			
-                		</div>
-                		
-                	</div>
-                	
-                	<br />
-                	<div class="divider"></div>
-                	<br />
-                	<div class="container">
-                		<div class="row">
-                			<div class="col s12 card hoverable">
-                				<form class="col s12" action="/ApkAnalyzePlatform/messagepatten" method="post">
-							      <div class="row">
-							        <div class="input-field col s2">
-							          <input placeholder="用户名" id="receiver_id" name="to" type="text" class="validate">
-							          <label for="receiver_id">接收方：</label>
-							        </div>
-							      </div>
-							      <br />
-							      <div class="row">
-							          <div class="input-field col s11">
-							          	<input placeholder="留言内容" id="content" name="content" type="text" class="validate">
-							          	<label for="content">留言：</label>
-							          </div>
-							      </div>
-							      <input type="submit" value="留言"  onclick="Materialize.toast('留言已发送', 4000)" class="right btn"  />
-							      <!--<a class="col s1 btn waves-effect waves-light right">留言</a>-->
-							      <br />
-							    </form>
-							    <br />
-                			</div>
-						    
-						</div>
-                		<br />
-                	</div>
-                	<br />
-                	<br />
-                	<br />
+					<form action="" method="get"> 
+					您最喜欢水果？<br /><br /> 
+						<label><input name="Fruit" type="radio" value="" />苹果 </label> 
+						<label><input name="Fruit" type="radio" value="" />桃子 </label> 
+						<label><input name="Fruit" type="radio" value="" />香蕉 </label> 
+						<label><input name="Fruit" type="radio" value="" />梨 </label> 
+						<label><input name="Fruit" type="radio" value="" />其它 </label> 
+					</form> 
                 	
                 </div>
                 <!--end container-->

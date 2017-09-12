@@ -262,12 +262,13 @@ HibernateSessionFactory.closeSession();
                     </li>
                     <li class="bold"><a href="upload.jsp" class="waves-effect waves-cyan"><i class="material-icons">present_to_all</i> 文件上传</a>
                     </li>
-                    <li class="bold"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知 <%if(un_read_num>0){ %>><span class="new badge"><%=un_read_num %></span><%} %></a>
+                    <li class="bold"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知 <%if(un_read_num>0){ %><span class="new badge"><%=un_read_num %></span><%} %></a>
                     </li>
                     <li class="bold"><a href="statistic.jsp" class="waves-effect waves-cyan"><i class="material-icons">assessment</i> 统计管理</a>
                     </li>
+                    <%if((Boolean)is_admin) {%>
                     <li class="bold"><a href="usermanager.jsp" class="waves-effect waves-cyan"><i class="material-icons">perm_identity</i> 用户管理</a>
-                    </li>
+                    </li><%} %>
                     <li class="bold"><a href="search.jsp" class="waves-effect waves-cyan"><i class="material-icons">search</i> 查找</a>
                     </li>
 

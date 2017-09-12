@@ -62,7 +62,25 @@ public class messageServlet extends HttpServlet {
 		}
 		else if(to.equals("all"))
 		{
+			Session session=HibernateSessionFactory.getSession();
+			Transaction tx = session.beginTransaction();
+		
+			Message message = new Message();
+			message.setContent(content);
+			message.setSenderId((Integer)user_id);
+			message.setIsRead(false);
 			
+			Query q = session.createQuery("from User");  
+	        List<User> list=q.list();
+			for(int i=0;i<list.size();i++)
+			{
+				message.setReceiverId(list.get(i).getUserId());
+				session.save(message);
+			}
+			
+	        tx.commit();
+	        HibernateSessionFactory.closeSession();
+	        response.sendRedirect("/ApkAnalyzePlatform/message.jsp");
 		}
 		else
 		{
