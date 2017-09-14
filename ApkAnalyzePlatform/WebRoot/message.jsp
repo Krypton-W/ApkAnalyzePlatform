@@ -21,25 +21,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     
-    <title>Message</title>
+    <title>消息通知</title>
 
     <!-- CORE CSS-->    
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection">
 
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script type="text/javascript" src="FusionCharts/js/fusioncharts.js"></script>
-<script type="text/javascript" src="FusionCharts/js/themes/fusioncharts.theme.fint.js"></script>
-
-<style>
+<!--<style>
 	html{height:100%;}
 body{min-height:100%;margin:0;padding:0;position:relative;}
 
 header{background-color: #ffe4c4;}
 main{padding-bottom:100px;background-color: #bdb76b;}/* main的padding-bottom值要等于或大于footer的height值 */
 footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc0cb;}
-</style>
+</style>-->
 
 </head>
 
@@ -102,13 +99,13 @@ System.out.println(un_read_num);*/
     <!-- END HEADER -->
 
     <!-- //////////////////////////////////////////////////////////////////////////// -->
-    <!-- START MAIN -->
+     <!-- START MAIN -->
     <div id="main">
         <!-- START WRAPPER -->
         <div class="wrapper">
-
-            <!-- START LEFT SIDEBAR NAV-->
-            <aside id="left-sidebar-nav">
+        	<div class="row">
+        		<div class="col s1">
+        			<aside id="left-sidebar-nav">
                 <ul id="slide-out" class="side-nav fixed leftside-navigation">
                     <li class="user-details cyan darken-2">
                         <div class="row">
@@ -148,9 +145,7 @@ System.out.println(un_read_num);*/
                     </li>
 
                     <li class="li-hover"><div class="divider"></div></li>
-                    <li class="li-hover"><p class="ultra-small margin more-text">MORE</p></li>
-                    <li><a href="help.jsp"><i class="material-icons">star</i>帮助</a>
-                    </li>                  
+                    <li class="li-hover"><p class="ultra-small margin more-text">MORE</p></li>             
                     <li>
                     <a href="aboutus.jsp"><i class="material-icons">turned_in</i>关于我们</a>
                     </li>
@@ -170,12 +165,10 @@ System.out.println(un_read_num);*/
                     </li>
                 </ul>
             </aside>
-            <!-- END LEFT SIDEBAR NAV-->
-
-            <!-- //////////////////////////////////////////////////////////////////////////// -->
-
-            <!-- START CONTENT -->
-            <section id="content">
+        		</div>
+        		<div class="col s11">
+        		<!-- START CONTENT -->
+            		<section id="content">
 
                 <!--start container-->
                 <div class="container">
@@ -265,7 +258,7 @@ System.out.println(un_read_num);*/
                 	<br />
                 	<div class="container">
                 		<div class="row">
-                			<div class="col s12 card hoverable">
+                			<div class="card col s12 hoverable">
                 				<form class="col s12" action="/ApkAnalyzePlatform/messagepatten" method="post">
 							      <div class="row">
 							        <div class="input-field col s2">
@@ -297,7 +290,29 @@ System.out.println(un_read_num);*/
                 </div>
                 <!--end container-->
             </section>
-            <!-- END CONTENT -->
+           		 <!-- END CONTENT -->
+            
+             <!-- START FOOTER -->
+			    <footer class="page-footer">
+			          <div class="container">
+			             Copyright MonsterFucker Team © 2017   All rights reserved.
+			          </div>
+			          <br />
+			          <div class="footer-copyright">
+			            <div class="container">
+			            © Design and Developed by MonsterFucker
+			            </div>
+			          </div>
+			        </footer>
+			   <!-- END FOOTER -->
+            
+        		</div>
+        		
+        	</div>
+
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+            
 
             <!-- //////////////////////////////////////////////////////////////////////////// -->
             
@@ -307,26 +322,14 @@ System.out.println(un_read_num);*/
 
     </div>
     <!-- END MAIN -->
-    
-    <br />
-<br />
-<br />
     <!-- //////////////////////////////////////////////////////////////////////////// -->
-
-    <!-- START FOOTER -->
-    <footer class="page-footer">
-          <div class="container">
-             Copyright MonsterFucker Team © 2017   All rights reserved.
-          </div>
-          <br />
-          <div class="footer-copyright">
-            <div class="container">
-            © Design and Developed by MonsterFucker
-            </div>
-          </div>
-        </footer>
-    <!-- END FOOTER -->
 
 </body>
 
 </html>
+
+
+
+
+ 
+

@@ -8,92 +8,91 @@ public class Apk implements java.io.Serializable {
 
 	// Fields
 
-	private Integer idApk;
+	private Integer apkId;
+	private String fileDirectoryName;
 	private String apkName;
 	private String apkType;
 	private Integer developerId;
 	private String versionName;
-	private Boolean readPhoneState;
-	private Boolean accessNetworkState;
-	private Boolean changeNetworkStatel;
-	private Boolean accessWifiState;
-	private Boolean changeWifiState;
-	private Boolean readExternalStorage;
-	private Boolean writeExternalStorage;
-	private Boolean viberate;
-	private Boolean mountUnmountFilesystem;
-	private Boolean accessFineLocation;
+	private Boolean internet;
 	private Boolean accessCoarseLocation;
-	private Boolean bluetooth;
-	private Boolean readCalendar;
-	private Boolean writeCalendar;
-	private Boolean carmer;
+	private Boolean accessFineLocation;
+	private Boolean camera;
 	private Boolean recordAudio;
-	private Boolean modifyAudioSetting;
-	private Boolean wakeLock;
-	private Boolean systemAlertWindow;
-	private Boolean getAccounts;
-	private Boolean manageAccount;
-	private Boolean writtingSettings;
-	private Boolean receiverUserPresent;
+	private Boolean readContacts;
+	private Boolean writeContacts;
+	private Boolean bluetooth;
+	private Boolean nfc;
+	private Boolean callaPhone;
+	private Boolean readSms;
+	private Boolean writeSms;
+	private String iconDirectory;
 
 	// Constructors
 
 	/** default constructor */
 	public Apk() {
+		internet=false;
+		accessCoarseLocation=false;
+		accessFineLocation=false;
+		camera=false;
+		recordAudio=false;
+		readContacts=false;
+		writeContacts=false;
+		bluetooth=false;
+		nfc=false;
+		callaPhone=false;
+		readSms=false;
+		writeSms=false;
 	}
 
 	/** minimal constructor */
-	public Apk(String apkName, String apkType) {
-		this.apkName = apkName;
+	public Apk(String fileDirectoryName, String apkType) {
+		this.fileDirectoryName = fileDirectoryName;
 		this.apkType = apkType;
 	}
 
 	/** full constructor */
-	public Apk(String apkName, String apkType, Integer developerId, String versionName, Boolean readPhoneState,
-			Boolean accessNetworkState, Boolean changeNetworkStatel, Boolean accessWifiState, Boolean changeWifiState,
-			Boolean readExternalStorage, Boolean writeExternalStorage, Boolean viberate, Boolean mountUnmountFilesystem,
-			Boolean accessFineLocation, Boolean accessCoarseLocation, Boolean bluetooth, Boolean readCalendar,
-			Boolean writeCalendar, Boolean carmer, Boolean recordAudio, Boolean modifyAudioSetting, Boolean wakeLock,
-			Boolean systemAlertWindow, Boolean getAccounts, Boolean manageAccount, Boolean writtingSettings,
-			Boolean receiverUserPresent) {
+	public Apk(String fileDirectoryName, String apkName, String apkType, Integer developerId, String versionName,
+			Boolean internet, Boolean accessCoarseLocation, Boolean accessFineLocation, Boolean camera,
+			Boolean recordAudio, Boolean readContacts, Boolean writeContacts, Boolean bluetooth, Boolean nfc,
+			Boolean callaPhone, Boolean readSms, Boolean writeSms, String iconDirectory) {
+		this.fileDirectoryName = fileDirectoryName;
 		this.apkName = apkName;
 		this.apkType = apkType;
 		this.developerId = developerId;
 		this.versionName = versionName;
-		this.readPhoneState = readPhoneState;
-		this.accessNetworkState = accessNetworkState;
-		this.changeNetworkStatel = changeNetworkStatel;
-		this.accessWifiState = accessWifiState;
-		this.changeWifiState = changeWifiState;
-		this.readExternalStorage = readExternalStorage;
-		this.writeExternalStorage = writeExternalStorage;
-		this.viberate = viberate;
-		this.mountUnmountFilesystem = mountUnmountFilesystem;
-		this.accessFineLocation = accessFineLocation;
+		this.internet = internet;
 		this.accessCoarseLocation = accessCoarseLocation;
-		this.bluetooth = bluetooth;
-		this.readCalendar = readCalendar;
-		this.writeCalendar = writeCalendar;
-		this.carmer = carmer;
+		this.accessFineLocation = accessFineLocation;
+		this.camera = camera;
 		this.recordAudio = recordAudio;
-		this.modifyAudioSetting = modifyAudioSetting;
-		this.wakeLock = wakeLock;
-		this.systemAlertWindow = systemAlertWindow;
-		this.getAccounts = getAccounts;
-		this.manageAccount = manageAccount;
-		this.writtingSettings = writtingSettings;
-		this.receiverUserPresent = receiverUserPresent;
+		this.readContacts = readContacts;
+		this.writeContacts = writeContacts;
+		this.bluetooth = bluetooth;
+		this.nfc = nfc;
+		this.callaPhone = callaPhone;
+		this.readSms = readSms;
+		this.writeSms = writeSms;
+		this.iconDirectory = iconDirectory;
 	}
 
 	// Property accessors
 
-	public Integer getIdApk() {
-		return this.idApk;
+	public Integer getApkId() {
+		return this.apkId;
 	}
 
-	public void setIdApk(Integer idApk) {
-		this.idApk = idApk;
+	public void setApkId(Integer apkId) {
+		this.apkId = apkId;
+	}
+
+	public String getFileDirectoryName() {
+		return this.fileDirectoryName;
+	}
+
+	public void setFileDirectoryName(String fileDirectoryName) {
+		this.fileDirectoryName = fileDirectoryName;
 	}
 
 	public String getApkName() {
@@ -128,84 +127,12 @@ public class Apk implements java.io.Serializable {
 		this.versionName = versionName;
 	}
 
-	public Boolean getReadPhoneState() {
-		return this.readPhoneState;
+	public Boolean getInternet() {
+		return this.internet;
 	}
 
-	public void setReadPhoneState(Boolean readPhoneState) {
-		this.readPhoneState = readPhoneState;
-	}
-
-	public Boolean getAccessNetworkState() {
-		return this.accessNetworkState;
-	}
-
-	public void setAccessNetworkState(Boolean accessNetworkState) {
-		this.accessNetworkState = accessNetworkState;
-	}
-
-	public Boolean getChangeNetworkStatel() {
-		return this.changeNetworkStatel;
-	}
-
-	public void setChangeNetworkStatel(Boolean changeNetworkStatel) {
-		this.changeNetworkStatel = changeNetworkStatel;
-	}
-
-	public Boolean getAccessWifiState() {
-		return this.accessWifiState;
-	}
-
-	public void setAccessWifiState(Boolean accessWifiState) {
-		this.accessWifiState = accessWifiState;
-	}
-
-	public Boolean getChangeWifiState() {
-		return this.changeWifiState;
-	}
-
-	public void setChangeWifiState(Boolean changeWifiState) {
-		this.changeWifiState = changeWifiState;
-	}
-
-	public Boolean getReadExternalStorage() {
-		return this.readExternalStorage;
-	}
-
-	public void setReadExternalStorage(Boolean readExternalStorage) {
-		this.readExternalStorage = readExternalStorage;
-	}
-
-	public Boolean getWriteExternalStorage() {
-		return this.writeExternalStorage;
-	}
-
-	public void setWriteExternalStorage(Boolean writeExternalStorage) {
-		this.writeExternalStorage = writeExternalStorage;
-	}
-
-	public Boolean getViberate() {
-		return this.viberate;
-	}
-
-	public void setViberate(Boolean viberate) {
-		this.viberate = viberate;
-	}
-
-	public Boolean getMountUnmountFilesystem() {
-		return this.mountUnmountFilesystem;
-	}
-
-	public void setMountUnmountFilesystem(Boolean mountUnmountFilesystem) {
-		this.mountUnmountFilesystem = mountUnmountFilesystem;
-	}
-
-	public Boolean getAccessFineLocation() {
-		return this.accessFineLocation;
-	}
-
-	public void setAccessFineLocation(Boolean accessFineLocation) {
-		this.accessFineLocation = accessFineLocation;
+	public void setInternet(Boolean internet) {
+		this.internet = internet;
 	}
 
 	public Boolean getAccessCoarseLocation() {
@@ -216,36 +143,20 @@ public class Apk implements java.io.Serializable {
 		this.accessCoarseLocation = accessCoarseLocation;
 	}
 
-	public Boolean getBluetooth() {
-		return this.bluetooth;
+	public Boolean getAccessFineLocation() {
+		return this.accessFineLocation;
 	}
 
-	public void setBluetooth(Boolean bluetooth) {
-		this.bluetooth = bluetooth;
+	public void setAccessFineLocation(Boolean accessFineLocation) {
+		this.accessFineLocation = accessFineLocation;
 	}
 
-	public Boolean getReadCalendar() {
-		return this.readCalendar;
+	public Boolean getCamera() {
+		return this.camera;
 	}
 
-	public void setReadCalendar(Boolean readCalendar) {
-		this.readCalendar = readCalendar;
-	}
-
-	public Boolean getWriteCalendar() {
-		return this.writeCalendar;
-	}
-
-	public void setWriteCalendar(Boolean writeCalendar) {
-		this.writeCalendar = writeCalendar;
-	}
-
-	public Boolean getCarmer() {
-		return this.carmer;
-	}
-
-	public void setCarmer(Boolean carmer) {
-		this.carmer = carmer;
+	public void setCamera(Boolean camera) {
+		this.camera = camera;
 	}
 
 	public Boolean getRecordAudio() {
@@ -256,60 +167,72 @@ public class Apk implements java.io.Serializable {
 		this.recordAudio = recordAudio;
 	}
 
-	public Boolean getModifyAudioSetting() {
-		return this.modifyAudioSetting;
+	public Boolean getReadContacts() {
+		return this.readContacts;
 	}
 
-	public void setModifyAudioSetting(Boolean modifyAudioSetting) {
-		this.modifyAudioSetting = modifyAudioSetting;
+	public void setReadContacts(Boolean readContacts) {
+		this.readContacts = readContacts;
 	}
 
-	public Boolean getWakeLock() {
-		return this.wakeLock;
+	public Boolean getWriteContacts() {
+		return this.writeContacts;
 	}
 
-	public void setWakeLock(Boolean wakeLock) {
-		this.wakeLock = wakeLock;
+	public void setWriteContacts(Boolean writeContacts) {
+		this.writeContacts = writeContacts;
 	}
 
-	public Boolean getSystemAlertWindow() {
-		return this.systemAlertWindow;
+	public Boolean getBluetooth() {
+		return this.bluetooth;
 	}
 
-	public void setSystemAlertWindow(Boolean systemAlertWindow) {
-		this.systemAlertWindow = systemAlertWindow;
+	public void setBluetooth(Boolean bluetooth) {
+		this.bluetooth = bluetooth;
 	}
 
-	public Boolean getGetAccounts() {
-		return this.getAccounts;
+	public Boolean getNfc() {
+		return this.nfc;
 	}
 
-	public void setGetAccounts(Boolean getAccounts) {
-		this.getAccounts = getAccounts;
+	public void setNfc(Boolean nfc) {
+		this.nfc = nfc;
 	}
 
-	public Boolean getManageAccount() {
-		return this.manageAccount;
+	public Boolean getCallaPhone() {
+		return this.callaPhone;
 	}
 
-	public void setManageAccount(Boolean manageAccount) {
-		this.manageAccount = manageAccount;
+	public void setCallaPhone(Boolean callaPhone) {
+		this.callaPhone = callaPhone;
 	}
 
-	public Boolean getWrittingSettings() {
-		return this.writtingSettings;
+	public Boolean getReadSms() {
+		return this.readSms;
 	}
 
-	public void setWrittingSettings(Boolean writtingSettings) {
-		this.writtingSettings = writtingSettings;
+	public void setReadSms(Boolean readSms) {
+		this.readSms = readSms;
 	}
 
-	public Boolean getReceiverUserPresent() {
-		return this.receiverUserPresent;
+	public Boolean getWriteSms() {
+		return this.writeSms;
 	}
 
-	public void setReceiverUserPresent(Boolean receiverUserPresent) {
-		this.receiverUserPresent = receiverUserPresent;
+	public void setWriteSms(Boolean writeSms) {
+		this.writeSms = writeSms;
 	}
 
+	public String getIconDirectory() {
+		return this.iconDirectory;
+	}
+
+	public void setIconDirectory(String iconDirectory) {
+		this.iconDirectory = iconDirectory;
+	}
+
+	public String toString()
+	{
+		return "this is toString";
+	}
 }

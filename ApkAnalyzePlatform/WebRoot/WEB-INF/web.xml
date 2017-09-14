@@ -15,7 +15,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>upload</servlet-name>
-    <url-pattern>/uploadServlet</url-pattern>
+    <url-pattern>/Upload</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>LJudge</servlet-name>
@@ -40,5 +40,13 @@
   <servlet-mapping>
     <servlet-name>Regest</servlet-name>
     <url-pattern>/regestpatten</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Search</servlet-name>
+    <servlet-class>com.analysis.APK.saerch</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Search</servlet-name>
+    <url-pattern>/searchpatten</url-pattern>
   </servlet-mapping>
   </web-app>

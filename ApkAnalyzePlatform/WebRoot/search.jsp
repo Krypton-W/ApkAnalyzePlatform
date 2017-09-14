@@ -39,7 +39,6 @@ header{background-color: #ffe4c4;}
 main{padding-bottom:100px;background-color: #bdb76b;}/* main的padding-bottom值要等于或大于footer的height值 */
 footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #ffc0cb;}
 </style>-->
-
 </head>
 
 <body>
@@ -135,7 +134,7 @@ System.out.println(un_read_num);*/
                     </li>
                     <li class="bold"><a href="dashboard.jsp" class="waves-effect waves-cyan"><i class="material-icons">toc</i> 控制台</a>
                     </li>
-                    <li class="bold active teal lighten-4"><a href="upload.jsp" class="waves-effect waves-cyan"><i class="material-icons">present_to_all</i> 文件上传</a>
+                    <li class="bold"><a href="upload.jsp" class="waves-effect waves-cyan"><i class="material-icons">present_to_all</i> 文件上传</a>
                     </li>
                     <li class="bold"><a href="message.jsp" class="waves-effect waves-cyan"><i class="material-icons">message</i>消息通知</a>
                     </li>
@@ -143,11 +142,13 @@ System.out.println(un_read_num);*/
                     </li>
                     <li class="bold"><a href="usermanager.jsp" class="waves-effect waves-cyan"><i class="material-icons">perm_identity</i> 用户管理</a>
                     </li>
-                    <li class="bold"><a href="search.jsp" class="waves-effect waves-cyan"><i class="material-icons">search</i> 查找</a>
+                    <li class="bold active teal lighten-4"><a href="search.jsp" class="waves-effect waves-cyan"><i class="material-icons">search</i> 查找</a>
                     </li>
 
                     <li class="li-hover"><div class="divider"></div></li>
-                    <li class="li-hover"><p class="ultra-small margin more-text">MORE</p></li>             
+                    <li class="li-hover"><p class="ultra-small margin more-text">MORE</p></li>
+                    <li><a href="help.jsp"><i class="material-icons">star</i>帮助</a>
+                    </li>                  
                     <li>
                     <a href="aboutus.jsp"><i class="material-icons">turned_in</i>关于我们</a>
                     </li>
@@ -175,130 +176,12 @@ System.out.println(un_read_num);*/
 
                 <!--start container-->
                 <div class="container">
-               			<p class="flow-text center">${message}</p> <br>
-									   <%
-									   Object obj=request.getAttribute("apk");
-										   Apk apk=(Apk)obj; 
-										   if(apk!=null)
-										   {
-										   
-									   %>
-									   <div class="row">
-										   <div class="col s12">
-										   	<div class="col s10 m4 l2">
-										   		<div class="card hoverable z-depth-1">
-								            <div class="card-image">
-								              <img src="${iconPath}">
-								            </div>
-								            <div class="card-content">
-								            	<h5 class="left pink-text"><%=apk.getApkName() %></h5><br /><br /><br />
-								              <p class="left">应用类型：<br /><%=apk.getApkType() %></p><br /><br /><br />
-											  <p class="left">版本号：<br /><%=apk.getVersionName() %></p><br /><br />
-								            </div>
-								          </div>
-										   	</div>
-										   	<div class="col s12 m6 l10">
-										   		<div class="card">
-										   		<table class="striped highlight centered">
-									        <thead>
-									          <tr>
-									              <th data-field="id">权限名称</th>
-									              <th data-field="name">详情</th>
-									          </tr>
-									        </thead>
-									
-									        <tbody>
-									          
-									          <tr>
-									            <td>获取大致位置信息</td>
-									            <td><%if(apk.getAccessCoarseLocation()){out.println("√");}%></td>
-									          </tr>
-									         
-									          <tr>
-									            <td>获取精确位置信息</td>
-									            <td><%if(apk.getAccessFineLocation()){out.println("√");} %></td>
-									          </tr>
-									                 
-									          <tr>
-									            <td>网络访问</td>
-									            <td><%if(apk.getInternet()){out.println("√");} %></td>
-									          </tr>
-									          
-									          <tr>
-									            <td>拍摄照片或视频</td>
-									            <td><%if(apk.getCamera()){out.println("√");} %></td>
-									          </tr>  
-									             
-									          <tr>
-									            <td>录音</td>
-									            <td><%if(apk.getRecordAudio()){out.println("√");} %></td>
-									          </tr>
-									          
-									          <tr>
-									            <td>访问联系人</td>
-									            <td><%if(apk.getReadContacts()){out.println("√");} %></td>
-									          </tr>  
-									             
-									          <tr>
-									            <td>编辑联系人</td>
-									            <td><%if(apk.getWriteContacts()){out.println("√");} %></td>
-									          </tr>
-									          
-									          <tr>
-									            <td>蓝牙</td>
-									            <td><%if(apk.getBluetooth()){out.println("√");} %></td>
-									          </tr>
-									          
-									          <tr>
-									            <td>NFC</td>
-									            <td><%if(apk.getNfc()){out.println("√");} %></td>
-									          </tr>
-									          
-									          <tr>
-									            <td>拨打电话</td>
-									            <td><%if(apk.getCallaPhone()){out.println("√");} %></td>
-									          </tr>
-									            
-									          <tr>
-									            <td>访问短信</td>
-									            <td><%if(apk.getReadSms()){out.println("√");} %></td>
-									          </tr>
-									          
-									          <tr>
-									            <td>编辑短信</td>
-									            <td><%if(apk.getWriteContacts()){out.println("√");} %></td>
-									          </tr>
-									        </tbody>
-									      </table>
-										   		</div>
-										   	</div>
-											    
-											  </div>
-									  </div>
-									   <br>
-									
-									 <%} %>
-									 
-									 
+               			
+                	
                 </div>
                 <!--end container-->
             </section>
             <!-- END CONTENT -->
-            
-             <!-- START FOOTER -->
-			    <footer class="page-footer">
-			          <div class="container">
-			             Copyright MonsterFucker Team © 2017   All rights reserved.
-			          </div>
-			          <br />
-			          <div class="footer-copyright">
-			            <div class="container">
-			            © Design and Developed by MonsterFucker
-			            </div>
-			          </div>
-			        </footer>
-			   <!-- END FOOTER -->
-            
         		</div>
         		
         	</div>
@@ -315,21 +198,25 @@ System.out.println(un_read_num);*/
 
     </div>
     <!-- END MAIN -->
-
+    
+    <br />
+<br />
+<br />
     <!-- //////////////////////////////////////////////////////////////////////////// -->
 
-									  <div class="fixed-action-btn">
-									    <a class="btn-floating btn-large red">
-									      <i class="material-icons">mode_edit</i>
-									    </a>
-									    <ul>
-									      <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-									      <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-									      <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-									      <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-									    </ul>
-									  </div>
-   
+    <!-- START FOOTER -->
+    <footer class="page-footer">
+          <div class="container">
+             Copyright MonsterFucker Team © 2017   All rights reserved.
+          </div>
+          <br />
+          <div class="footer-copyright">
+            <div class="container">
+            © Design and Developed by MonsterFucker
+            </div>
+          </div>
+        </footer>
+    <!-- END FOOTER -->
 
 </body>
 
